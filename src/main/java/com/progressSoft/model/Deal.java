@@ -22,9 +22,11 @@ public class Deal {
     private String uniqueId;
 
     @NotNull(message = "From Currency cannot be null")
+    @Column(name = "from_currency")
     private String fromCurrency;
 
     @NotNull(message = "To Currency cannot be null")
+    @Column(name = "to_currency")
     private String toCurrency;
 
     @NotNull(message = "Deal timestamp cannot be null")
@@ -35,6 +37,7 @@ public class Deal {
     @Column(name = "deal_amount", precision = 15, scale = 2)
     private Double dealAmount;
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
 }
