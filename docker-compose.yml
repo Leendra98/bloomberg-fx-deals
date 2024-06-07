@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: deal_management
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: ./mvnw spring-boot:run
+
+volumes:
+  pgdata:
