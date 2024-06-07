@@ -4,34 +4,35 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
+@Table(name = "deals")
 @Entity
 @Getter
 @Setter
 public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(unique = true, nullable = false)
-    @NotBlank(message = "Unique ID is mandatory")
+    @NotNull(message = "Unique ID cannot be null")
+    @Column(name = "unique_id", unique = true)
     private String uniqueId;
 
-    @NotBlank(message = "From Currency is mandatory")
+    @NotNull(message = "From Currency cannot be null")
     private String fromCurrency;
 
-    @NotBlank(message = "To Currency is mandatory")
+    @NotNull(message = "To Currency cannot be null")
     private String toCurrency;
 
-    @NotNull(message = "Deal timestamp is mandatory")
+    @NotNull(message = "Deal timestamp cannot be null")
+    @Column(name = "deal_timestamp")
     private LocalDateTime dealTimestamp;
 
-    @NotNull(message = "Deal amount is mandatory")
     @Positive(message = "Deal amount must be positive")
+    @Column(name = "deal_amount", precision = 15, scale = 2)
     private Double dealAmount;
 
     @Column(updatable = false)
